@@ -7,44 +7,41 @@ Console.WriteLine("Hello, World!");
 PlanetCatalog planetCatalog = new PlanetCatalog();
 try
 {
-    string[] planetToFind = { "Earth", "Limonia", "Mars"};
-    foreach(var item in planetToFind)
+    int counter = 0;
+    Func<string, string> checkingRequests = _ =>
     {
-        var result = PlanetCatalog.GetPlanet(item, (planetName) =>
-        {
-            if (Config.couter == 3)
-            {
-                Config.couter = 0;
-                return "Вы спрашиваете слишком часто";
-            }
-            Config.couter++;
-            return planetName;
-        });
+        counter++;
+        if(counter == 3)
+            return "Вы спрашиваете слишком часто";
+        return null;
+    };
+
+    Console.WriteLine("Первая серия проверок:");
+    string[] planetToFind = { "Earth", "Limonia", "Mars" };
+    foreach (var item in planetToFind)
+    {
+        var result = PlanetCatalog.GetPlanet(item, checkingRequests);
+
         if (string.IsNullOrEmpty(result.Item3))
             Console.WriteLine($"Планета: {item}, Порядковый номер: {result.Item1}, Длина экватора: {result.Item2}");
         else
             Console.WriteLine($"Ошибка: {result.Item3}");
     }
 
-    //задание*
-    Console.WriteLine("\nЗадание со звёздочкой");
-    foreach(var item in planetToFind)
+
+    // Дополнительное задание
+    Console.WriteLine("\nВторая серия проверок:");
+    Func<string, string> checkPlanents = planetName =>
     {
-        var result = PlanetCatalog.GetPlanet(item, (planetName) =>
-        {
-            if (Config.couter == 3)
-            {
-                Config.couter = 0;
-                return "Вы спрашиваете слишком часто";
-            }
-            if (planetName == "Limonia")
-                return "Это запретная планета";
+        if (planetName.Equals("Limonia"))
+            return "Это запретная планета";
+        return null;
+    };
 
-            Config.couter++;
-            return null;
-        });
-
-
+    string[] planetsToCheck = { "Earth", "Limonia", "Mars" };
+    foreach (var item in planetsToCheck)
+    {
+        var result = PlanetCatalog.GetPlanet(item, checkPlanents);
         if (string.IsNullOrEmpty(result.Item3))
             Console.WriteLine($"Планета: {item}, Порядковый номер: {result.Item1}, Длина экватора: {result.Item2}");
         else

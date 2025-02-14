@@ -10,6 +10,7 @@ namespace Classes.Models
     public class PlanetCatalog
     {
         static List<Planet> _planets = new List<Planet>();
+        private static int _counter;
 
         public PlanetCatalog()
         {
@@ -20,12 +21,12 @@ namespace Classes.Models
 
         public static (int, double, string) GetPlanet(string planetName)
         {
-            if (Config.couter == 3)
+            _counter++;
+            if (_counter == 3)
             {
-                Config.couter = 0;
+                _counter = 0;
                 return (-1, -1.0, "Вы спрашиваете слишком часто");          
             }
-            Config.couter++;
 
 
             var findPlanet = _planets.FirstOrDefault(x => x.Name.ToLower().Contains(planetName.ToLower()));

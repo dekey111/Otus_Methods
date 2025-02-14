@@ -32,65 +32,43 @@ var venus2 = new
     PreviousPlanet = venus,
 };
 
-Console.WriteLine($"Сравнение планеты: {venus.Name} c Венерой");
-PrintPlanet(venus, venus);
-
-Console.WriteLine($"Сравнение планеты: {earth.Name} c Венерой");
-PrintPlanet(earth, venus);
-
-Console.WriteLine($"Сравнение планеты: {mars.Name} c Венерой");
-PrintPlanet(mars, venus);
-
-Console.WriteLine($"Сравнение планеты: {venus2.Name} c Венерой");
-PrintPlanet(venus2, venus);
-
+List<dynamic> planets = new List<dynamic> { venus, earth, mars, venus2 };
+foreach(var item in planets) 
+    PrintPlanet(item, venus);
 
 
 Console.WriteLine(new string('-', 50));
 Console.WriteLine("Сравнение с Object");
 Console.WriteLine(new string('-', 50) + "\n");
 
-
-
-Console.WriteLine($"Сравнение планеты: {venus.Name} c Венерой");
-PrintPlanetObject(venus, venus);
-
-Console.WriteLine($"Сравнение планеты: {earth.Name} c Венерой");
-PrintPlanetObject(earth, venus);
-
-Console.WriteLine($"Сравнение планеты: {mars.Name} c Венерой");
-PrintPlanetObject(mars, venus);
-
-Console.WriteLine($"Сравнение планеты: {venus2.Name} c Венерой");
-PrintPlanetObject(venus2, venus);
-
-
+foreach(var item in planets)
+    PrintPlanetObject(item, venus);
 
 Console.ReadKey();
 
 
-static void PrintPlanet(dynamic platen, dynamic venus)
+static void PrintPlanet(dynamic planet, dynamic venus)
 {
-    Console.WriteLine($"Планета: {platen.Name}");
-    Console.WriteLine($"Порядковый номер: {platen.OrderNum}");
-    Console.WriteLine($"Длина экватора: {platen.EquatorLength} км");
-    Console.WriteLine($"Предыдущая планета: {platen.PreviousPlanet}");
+    Console.WriteLine($"Планета: {planet.Name}");
+    Console.WriteLine($"Порядковый номер: {planet.OrderNum}");
+    Console.WriteLine($"Длина экватора: {planet.EquatorLength} км");
+    Console.WriteLine($"Предыдущая планета: {planet.PreviousPlanet}");
 
-    if (platen.Equals(venus))
+    if (planet.Equals(venus))
         Console.WriteLine("Равны\n");
     else
         Console.WriteLine("Не равны\n");
 
 }
 
-static void PrintPlanetObject(object platen, object venus)
+static void PrintPlanetObject(object planet, object venus)
 {
-    Console.WriteLine($"Планета: {platen}");
-    Console.WriteLine($"Порядковый номер: {platen}");
-    Console.WriteLine($"Длина экватора: {platen} км");
-    Console.WriteLine($"Предыдущая планета: {platen}");
+    Console.WriteLine($"Планета: {planet}");
+    Console.WriteLine($"Порядковый номер: {planet}");
+    Console.WriteLine($"Длина экватора: {planet} км");
+    Console.WriteLine($"Предыдущая планета: {planet}");
 
-    if (platen.Equals(venus))
+    if (planet.Equals(venus))
         Console.WriteLine("Равны\n");
     else
         Console.WriteLine("Не равны\n");
